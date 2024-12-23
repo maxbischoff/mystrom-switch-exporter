@@ -18,6 +18,7 @@ func main() {
 
 	http.Handle("/metrics", promhttp.Handler())
 	http.Handle("/collect", http.HandlerFunc(handleCollectRequest))
+	fmt.Print("exporter started")
 	http.ListenAndServe(listenAddr, nil)
 }
 

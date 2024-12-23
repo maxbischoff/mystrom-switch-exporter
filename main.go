@@ -65,7 +65,7 @@ func collectSwitchMetrics(ctx context.Context, addr string, registry *prometheus
 	registry.MustRegister(energySinceBootGauge)
 	registry.MustRegister(timeSinceBootGauge)
 
-	req, err := http.NewRequestWithContext(ctx, "GET", fmt.Sprintf("%s/report", addr), nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s/report", addr), nil)
 	if err != nil {
 		return fmt.Errorf("could not build get request for call: %w", err)
 	}

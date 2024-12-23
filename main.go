@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"net/http"
 
@@ -11,9 +12,13 @@ import (
 )
 
 func main() {
+	var listenAddr string
+	flag.StringVar(&listenAddr, "listen-addr", ":8000", "address this exporter listens on")
+	flag.Parse()
+
 	http.Handle("/metrics", promhttp.Handler())
 	http.Handle("/collect", http.HandlerFunc(handleCollectRequest))
-	http.ListenAndServe(":2112", nil)
+	http.ListenAndServe(listenAddr, nil)
 }
 
 func handleCollectRequest(w http.ResponseWriter, r *http.Request) {
